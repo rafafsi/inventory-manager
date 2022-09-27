@@ -2,21 +2,19 @@ package com.rafaelafsi.inventorymanager.controller;
 
 import java.util.List;
 
-// import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rafaelafsi.inventorymanager.dto.request.ProductDTO;
 import com.rafaelafsi.inventorymanager.model.Product;
+import com.rafaelafsi.inventorymanager.repository.ProductRepository;
 import com.rafaelafsi.inventorymanager.service.ProductService;
 
 import lombok.AllArgsConstructor;
@@ -30,13 +28,13 @@ public class ProductController {
     //to create a new product -> return a DTO
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO createProduct(@RequestBody ProductDTO productDTO) {
-        return productService.createProduct(productDTO);
+    public Product createProduct(@RequestBody Product product) {
+        return productService.createProduct(product);
     }
 
     //to get all products
     @GetMapping("/products")
-    public List<ProductDTO> listProducts() {
+    public List<Product> listProducts() {
         return productService.listAll();
     }
 
@@ -53,20 +51,16 @@ public class ProductController {
     }
 
     //to update a product
-    @PatchMapping("/products/{id}")
-    public void updateProduct(int id) {
-        Product product = productService.getProduct(id);
+    @PutMapping("/products/{id}")
+    public Product updateProduct(@RequestBody Product newProduct, @PathVariable int id) {
+        Product productToBeUpdate = productService.getProduct(id);
 
-        product.setDescription(product.getDescription());
-        product.setExpirationDate(product.getExpirationDate());
-        product.setPrice(product.getPrice());
-        product.setType(product.getType());
+        productToBeUpdate.setDescription(newProduct.getDescription());
+        productToBeUpdate.setExpirationDate(newProduct.getExpirationDate());
+        productToBeUpdate.setPrice(newProduct.getPrice());
+        productToBeUpdate.setType(newProduct.getType());
 
-        productService.save(product);
+        productService.save(productToBeUpdate);
+        return productToBeUpdate;
     }
-
-
-
-
-
 }
