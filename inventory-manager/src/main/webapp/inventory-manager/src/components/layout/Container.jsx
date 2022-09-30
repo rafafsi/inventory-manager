@@ -10,21 +10,26 @@ const Container = ({ children, customClass }) => {
 
 const ContainerSty = styled.div`
     display: flex;
-    height: 730px;
+    min-height: 80vh;
+    width: 100vw;
     align-items: center;
-    background-color: #222;
+    background-color: var(--mainOrange);
+    border-bottom: 10px solid var(--mainOrange);
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+
 
     .section {
-    width: 80%;
-    height: 70%;
-    background-color: #fff;
+    width: 80vw;
+    height: 60vh;
+    padding: 4em;
     border-radius: 40px;
+    margin: 10px auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 4em;
-    margin: 0 auto;
+    background-color: var(--white); 
     }
 
     .min_height {
@@ -37,7 +42,7 @@ const ContainerSty = styled.div`
 
     .column {
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-around;
     }
 `
 export default Container;

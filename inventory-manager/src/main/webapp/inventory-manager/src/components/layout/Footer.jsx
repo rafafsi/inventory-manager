@@ -17,8 +17,8 @@ const Footer = () => {
 const Foot = styled.footer`
     height: 100px;
     width: 100%;
-    background-color: #222;
-    color: #e19a5e;
+    background-color: var(--mainBlack);
+    color: var(--mainOrange);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -29,29 +29,29 @@ const Foot = styled.footer`
 const SocialList = styled.ul`
     display: flex;
     list-style: none;
-    padding: 0;
+    padding-top: 2em;
 `
 
 const Items = styled.li`
-    padding: 0.2em;
+    padding: 5px;
 
     & svg {
-        font-size: 1em;
+        font-size: 2em;
         cursor: pointer;
         transition: 0.5s;
     }
 
     & svg:hover {
-        color: #e19a5e;
+        color: var(--mainOrange);
     }
 `
 
 const CopyRight = styled.p`
-    font-size: 1em;
+    font-size: 1.5em;
 
     & span { 
         font-weight: bold;
-        color: #e19a5e;
+        color: var(--mainOrange);
     }
 `
 

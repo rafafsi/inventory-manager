@@ -29,21 +29,21 @@ const Message = ({ msg, type }) => {
 const MessageSty = styled.div`
     width: 90%;
     padding: 1em;
-    border: 1px solid #000;
+    border: 1px solid var(--mainBlack);
     margin: 0 auto;
     text-align: center;
     border-radius: 5px;
 
     &.success {
-        color: #155724;
-        background-color: #d4edda;
-        border-color: #c3e6cb;
+        color: var(--success);
+        background-color: var(--backSuccess);
+        border-color: var(--borderSuccess);
     }
 
     &.error {
-        color: #721c24;
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
+        color: var(--error);
+        background-color: var(--backError);
+        border-color: var(--borderError);
     }
 `
 

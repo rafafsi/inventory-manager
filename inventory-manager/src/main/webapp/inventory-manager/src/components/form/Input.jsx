@@ -10,7 +10,6 @@ const Input = ({ icon, type, text, handleOnChange, placeholder, name }) => {
                 placeholder={placeholder} 
                 onChange={handleOnChange}
                 name={name}
-                autoFocus
                  />
         </Wrapper>
     )
@@ -25,11 +24,10 @@ const Wrapper = styled.div`
 
 const InputSty = styled.input`
     padding: 5px 5px 5px 40px;
-    border: solid 2px #000;
+    border: solid 2px var(--mainBlack);
     border-radius: 10px;
     margin: 0.5em;
     width: 500px;
-    flex: 1;
     font-size: 1em;
 `
 

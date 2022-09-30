@@ -8,5 +8,17 @@
 body {
   overflow: hidden;
   min-height: 100vh;
-  background-color: #222;
+  background-color: var(--mainBlack);
+}
+
+:root {
+  --mainOrange: #dd8943;
+  --mainBlack: #222;
+  --white: #fff;
+  --success: #155724;
+  --backSuccess: #d4edda;
+  --borderSuccess: #c3e6cb;
+  --error: #721c24;
+  --backError: #f8d7da;
+  --borderError: #f5c6cb;
 }

@@ -9,7 +9,7 @@ import { HiOutlineIdentification } from 'react-icons/hi'
 import LinkButton from "../layout/LinkButton";
 
 
-const Form = ({handleSubmit}) => {
+const LoginForm = ({handleSubmit}) => {
     
     const [data, setData] = useState({});
 
@@ -34,6 +34,7 @@ const Form = ({handleSubmit}) => {
                     placeholder="Name"
                     handleOnChange={handleChange}
                     icon={ <BiUser />}
+                    autoFocus
                     />
                 <Input 
                     type="text"
@@ -52,7 +53,7 @@ const Form = ({handleSubmit}) => {
                     icon={ <HiOutlineIdentification />}
                 />
 
-                <LinkButton to={'/products'} text={'Sign in'}></LinkButton>
+                <LinkButton to="/products" text="create"></LinkButton>
             </FormSty>
         </>
     )
@@ -63,9 +64,6 @@ const FormSty = styled.form`
     flex-direction: column;
     align-items: center;
     padding: 2em;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: #000 -1px 3px 8px 0px;
     
     * {
     font-family: 'Cairo', sans-serif;
@@ -73,4 +71,4 @@ const FormSty = styled.form`
 `
 
 
-export default Form;
+export default LoginForm;

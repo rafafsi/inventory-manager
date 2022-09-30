@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styled from "styled-components";
 
 import LoginForm from "../form/LoginForm";
 import Container from "../layout/Container";
 import Message from "../layout/Message";
+import Title from "../layout/Title";
 
 const Login = () => {
     
@@ -39,7 +39,7 @@ const Login = () => {
 
     return(
         <Container customClass={'section'}>
-            <Title>create account</Title>
+            <Title text={"create account"}/>
             {message && <Message type={type} msg={message} />}
             <LoginForm handleSubmit={createPerson}/>
         </Container>
@@ -47,8 +47,4 @@ const Login = () => {
 }
 
 
-const Title = styled.h3`
-    font-size: 1em;
-
-`
 export default Login;
