@@ -10,13 +10,12 @@ import org.springframework.stereotype.Service;
 import com.rafaelafsi.inventorymanager.model.Product;
 import com.rafaelafsi.inventorymanager.repository.ProductRepository;
 
-import lombok.AllArgsConstructor;
 
 @Service
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     // Is missing to do: Product already registered exception and
     // verifyIfAlreadyRegistered method
