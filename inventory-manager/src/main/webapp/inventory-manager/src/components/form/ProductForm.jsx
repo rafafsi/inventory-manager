@@ -5,18 +5,17 @@ import { BiCategoryAlt } from 'react-icons/bi'
 import { HiOutlineCurrencyDollar } from 'react-icons/hi'
 import { MdDateRange } from 'react-icons/md'
 import { useState } from "react";
-import LinkButton from "../layout/LinkButton";
 import styled from "styled-components";
+import Button from "../layout/Button";
 
 const ProductForm = ({handleSubmit}) => {
 
     const [product, setProduct] = useState([]);
 
-    const submit = (e) => {
-        e.preventDefault()
+    const submit = () => {
         handleSubmit(product)
     }
-
+    
     const handleChange = (e) => {
         setProduct({...product, [e.target.name]: e.target.value})
     }
@@ -41,7 +40,7 @@ const ProductForm = ({handleSubmit}) => {
                     icon={ <BiCategoryAlt />}
                 />
                 <Input 
-                    type="number"
+                    type="text"
                     text="price"
                     name="price"
                     placeholder="Price"
@@ -49,15 +48,15 @@ const ProductForm = ({handleSubmit}) => {
                     icon={ <HiOutlineCurrencyDollar />}
                 />
                 <Input 
-                    type="date"
-                    text="name"
-                    name="name"
-                    placeholder="Name"
+                    type="text"
+                    text="expiration"
+                    name="expiration"
+                    placeholder="YYYY-MM-DD"
                     handleOnChange={handleChange}
                     icon={ <MdDateRange />}
                 />
                 
-                <LinkButton type="submit" text="create product"/>
+                <Button type="submit" text="create product"/>
             </FormSty>
         </div>
         

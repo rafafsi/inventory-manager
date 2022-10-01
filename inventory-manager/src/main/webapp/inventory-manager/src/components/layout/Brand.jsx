@@ -27,6 +27,8 @@ const Title = styled.h1`
         position: absolute;
         top: 5px;
         margin-left: 10px;
+        background: none;
+        color: var(--mainOrange)
     }
 
     & span {

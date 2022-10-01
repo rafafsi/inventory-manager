@@ -6,7 +6,7 @@ import Input from "./Input";
 import { BiUser } from 'react-icons/bi'
 import { MdOutlineEmail } from 'react-icons/md'
 import { HiOutlineIdentification } from 'react-icons/hi'
-import LinkButton from "../layout/LinkButton";
+import Button from "../layout/Button";
 
 
 const LoginForm = ({handleSubmit}) => {
@@ -14,8 +14,7 @@ const LoginForm = ({handleSubmit}) => {
     const [data, setData] = useState({});
 
 
-    const submit = (e) => {
-        e.preventDefault();
+    const submit = () => {
         handleSubmit(data)
     }
 
@@ -53,7 +52,7 @@ const LoginForm = ({handleSubmit}) => {
                     icon={ <HiOutlineIdentification />}
                 />
 
-                <LinkButton to="/products" text="create"></LinkButton>
+                <Button type="submit" text="create"></Button>
             </FormSty>
         </>
     )

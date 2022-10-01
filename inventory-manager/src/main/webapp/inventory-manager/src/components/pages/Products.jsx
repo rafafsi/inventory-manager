@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import ProductForm from "../form/ProductForm";
+
+import Button from "../layout/Button";
 import Container from "../layout/Container"
-import LinkButton from "../layout/LinkButton";
 import Loading from "../layout/Loading";
 import Table from "../layout/Table";
 import Title from "../layout/Title";
+
+import { AiFillCloseCircle } from 'react-icons/ai'
 
 
 const Products = () => {
@@ -50,20 +54,39 @@ const Products = () => {
         }).catch((error) => console.log(error))
     }
 
-    const toggleForm = () => {
-        setShowForm(!showForm)
+    const editProduct = () => {
+        console.log('edit')
+    }
+    
+    const deleteProduct = () => {
+        console.log('delete')
+
     }
 
+    const toggleForm = () => {
+        if(showTable) {
+            setShowTable(!showTable)
+            setShowForm(!showForm)
+        } else {
+            setShowForm(!showForm)
+        }
+    }
+    
     const toggleTable = () => {
-        setShowTable(!showTable)
-
+        if(showForm) {
+            setShowTable(!showTable)
+            setShowForm(!showForm)
+        } else {
+            setShowTable(!showTable)
+        }
     }
 
     const column = [
         { heading: "Description", value: "description" },
         { heading: "Type", value: "type" },
         { heading: "Price", value: "price" },
-        { heading: "Expiration date", value: "expirationDate" }
+        { heading: "Expiration date", value: "expirationDate" },
+        { heading: "Actions", value: "actions"}
     ]
 
 
@@ -72,8 +95,8 @@ const Products = () => {
             <FormSty>
                 <Title text="new products" />
                 {!showForm ? 
-                    <LinkButton handleClick={toggleForm} text="click to insert" /> : 
-                    <LinkButton handleClick={toggleForm} text="x" />}
+                    <Button handleClick={toggleForm} text="click to insert" /> : 
+                    <Button handleClick={toggleForm} customClass="close" text={< AiFillCloseCircle />} />}
                 {showForm && <ProductForm handleSubmit={createProduct} />}
             </FormSty>
 
@@ -81,9 +104,15 @@ const Products = () => {
             <FormSty>
                 <Title text="your products" />
                 {!showTable ? 
-                    <LinkButton handleClick={toggleTable} text="click to see" /> : 
-                    <LinkButton handleClick={toggleTable} text="x" />}
-                {showTable && <Table data={products} column={column} /> }
+                    <Button handleClick={toggleTable} text="click to see" /> : 
+                    <Button handleClick={toggleTable} customClass="close" text={< AiFillCloseCircle />}/>}
+                {showTable && 
+                    <Table 
+                        handleEdit={editProduct} 
+                        handleDelete={deleteProduct} 
+                        data={products} 
+                        column={column} 
+                    /> }
                 {showTable && !removeLoading && <Loading />}
             </FormSty>
         </Container>

@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-const LinkButton = ({to, text, handleClick}) => {
+const LinkButton = ({to, text}) => {
     return(
-        <Button to={to} onClick={handleClick}> {text} </Button>
+        <Button to={to}> {text} </Button>
     )
 }
 
