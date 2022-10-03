@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-const Input = ({ icon, type, text, handleOnChange, placeholder, name }) => {
+const Input = ({ icon, type, text, handleOnChange, placeholder, name, value }) => {
     return (
         <Wrapper>
             <Icon>{icon}</Icon>
             <InputSty
                 type={type}
                 text={text}
+                name={name}
                 placeholder={placeholder} 
                 onChange={handleOnChange}
-                name={name}
+                value={value}
                  />
         </Wrapper>
     )

@@ -9,8 +9,7 @@ const Brand = ({place}) => {
 const Title = styled.h1`
     color: var(--mainBlack);
     font-weight: bold;
-    background-color: var(--mainOrange);
-    margin: 10px;
+    margin: 16px;
     padding: 10px;
     border-radius: 30px;
     padding-left: 30px;
@@ -18,17 +17,20 @@ const Title = styled.h1`
 
 
     &.home {
-        font-size: 5em;
-        box-shadow: 0px 3px var(--mainBlack) ;
+        font-size: 4.5em;
+        box-shadow: 0px 6px var(--mainOrange);
     }
-
+    
     &.nav {
         font-size: 2em;
         position: absolute;
         top: 5px;
         margin-left: 10px;
-        background: none;
-        color: var(--mainOrange)
+        color: var(--mainOrange);
+        
+        span {
+            color: var(--white)
+        }
     }
 
     & span {

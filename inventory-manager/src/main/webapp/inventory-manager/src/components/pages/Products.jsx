@@ -8,6 +8,7 @@ import Container from "../layout/Container"
 import Loading from "../layout/Loading";
 import Table from "../layout/Table";
 import Title from "../layout/Title";
+import Message from "../layout/Message";
 
 import { AiFillCloseCircle } from 'react-icons/ai'
 
@@ -15,9 +16,17 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 const Products = () => {
 
     const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState([])
+
     const [removeLoading, setRemoveLoading] = useState(false);
-    const [showForm, setShowForm] = useState(false);
+    const [showForm, setShowForm] = useState(true);
     const [showTable, setShowTable] = useState(false);
+    const [showButton, setShowButton] = useState(false)
+    const [edit, setEdit] = useState(false)
+
+    const [messageCreate, setMessageCreate] = useState()
+    const [messageEdit, setMessageEdit] = useState()
+    const [messageDelete, setMessageDelete] = useState()
 
 
     useEffect(() => {
@@ -36,6 +45,7 @@ const Products = () => {
     }, [])
 
     const createProduct = (product) => {
+        setMessageCreate('')
         fetch('http://localhost:8080/products', {
             method: 'POST',
             headers: {
@@ -43,27 +53,83 @@ const Products = () => {
             },
             body: JSON.stringify(product),
         })
-        
         .then((resp) => {
-            if(resp) {
-                resp.json()
-            }
+            resp.json()
         })
         .then((data) => {
-            console.log(`${data} creatted successfully`)
+            setProducts(data)
+            setMessageCreate('Product created successfully!')
+        })
+        .catch((error) => console.log(error))
+    }
+
+
+    const handleEdit = (id) => {
+        setTimeout(() => {
+            setShowButton(!showButton)
+            setShowForm(showForm)
+            setShowTable(!showTable)
+            setEdit(!edit)
+        }, 300)
+        return getProduct(id)
+    }
+
+
+    const editProduct = (product) => {
+        setMessageEdit('')
+        let id = product.id;
+        fetch(`http://localhost:8080/products/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(product)
+        }).then((resp) => {
+            resp.json()
+        }).then((data) => {
+            setProducts(data)
+            setMessageEdit('Updated product!')
         }).catch((error) => console.log(error))
     }
-
-    const editProduct = () => {
-        console.log('edit')
-    }
+        
     
-    const deleteProduct = () => {
-        console.log('delete')
-
+    const getProduct = (id) => { 
+    fetch(`http://localhost:8080/products/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then((resp) => resp.json())
+            .then((data) => {
+                setProduct(data)  
+            })
+            .catch((error) => console.log(error))
     }
 
-    const toggleForm = () => {
+    const deleteProduct = (id) => {
+        setMessageDelete('')
+        fetch(`http://localhost:8080/products/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+            }
+        })
+        .then((resp) => {
+            resp.json()
+        })
+        .then(() => {
+            setProducts(products.filter((product) => product.id !== id))
+            setMessageDelete('Product deleted successfully!')
+        })
+        .catch((error) => console.log(error))
+    }
+
+    const toggleForm = (e) => {
+        if(edit) {
+            showButton(!showButton)
+        }
         if(showTable) {
             setShowTable(!showTable)
             setShowForm(!showForm)
@@ -88,16 +154,21 @@ const Products = () => {
         { heading: "Expiration date", value: "expirationDate" },
         { heading: "Actions", value: "actions"}
     ]
-
-
     return (
         <Container customClass="section column">
             <FormSty>
                 <Title text="new products" />
-                {!showForm ? 
-                    <Button handleClick={toggleForm} text="click to insert" /> : 
-                    <Button handleClick={toggleForm} customClass="close" text={< AiFillCloseCircle />} />}
-                {showForm && <ProductForm handleSubmit={createProduct} />}
+                {!showForm && !showButton ?
+                    <Button handleClick={toggleForm} text="click to insert" /> :
+                    <Button handleClick={toggleForm} customClass="close" text={< AiFillCloseCircle />} />
+                }
+
+                {messageCreate && <Message type="success" msg={messageCreate}/>}
+                {messageEdit && <Message type="success" msg={messageEdit}/>}
+                {showForm && <ProductForm btnText={"create product"} handleSubmit={createProduct}/>}
+                {edit && (
+                    <ProductForm btnText={"update product"} productData={product} handleSubmit={editProduct}/>
+                )}
             </FormSty>
 
 
@@ -106,14 +177,16 @@ const Products = () => {
                 {!showTable ? 
                     <Button handleClick={toggleTable} text="click to see" /> : 
                     <Button handleClick={toggleTable} customClass="close" text={< AiFillCloseCircle />}/>}
+                {messageDelete && <Message type="success" msg={messageDelete}/>}
                 {showTable && 
                     <Table 
-                        handleEdit={editProduct} 
+                        handleEdit={handleEdit} 
                         handleDelete={deleteProduct} 
                         data={products} 
                         column={column} 
                     /> }
                 {showTable && !removeLoading && <Loading />}
+                
             </FormSty>
         </Container>
     )

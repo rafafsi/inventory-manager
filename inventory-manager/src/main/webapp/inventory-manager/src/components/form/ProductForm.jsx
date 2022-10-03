@@ -8,10 +8,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../layout/Button";
 
-const ProductForm = ({handleSubmit}) => {
+const ProductForm = ({btnText, handleSubmit, productData}) => {
 
-    const [product, setProduct] = useState([]);
-
+    const [product, setProduct] = useState(productData ? productData : []);
+    
+    
     const submit = () => {
         handleSubmit(product)
     }
@@ -30,7 +31,8 @@ const ProductForm = ({handleSubmit}) => {
                     placeholder="Description"
                     handleOnChange={handleChange}
                     icon={ <TbFileDescription />}
-                />
+                    value={product.description ? product.description : ''}
+                    />
                 <Input 
                     type="text"
                     text="type"
@@ -38,7 +40,8 @@ const ProductForm = ({handleSubmit}) => {
                     placeholder="Type"
                     handleOnChange={handleChange}
                     icon={ <BiCategoryAlt />}
-                />
+                    value={product.type ? product.type : ''}
+                    />
                 <Input 
                     type="text"
                     text="price"
@@ -46,7 +49,8 @@ const ProductForm = ({handleSubmit}) => {
                     placeholder="Price"
                     handleOnChange={handleChange}
                     icon={ <HiOutlineCurrencyDollar />}
-                />
+                    value={product.price ? product.price : ''}
+                    />
                 <Input 
                     type="text"
                     text="expiration"
@@ -54,9 +58,10 @@ const ProductForm = ({handleSubmit}) => {
                     placeholder="YYYY-MM-DD"
                     handleOnChange={handleChange}
                     icon={ <MdDateRange />}
+                    value={product.expirationDate ? product.expirationDate : ''}
                 />
                 
-                <Button type="submit" text="create product"/>
+                <Button type="submit" text={btnText}/>
             </FormSty>
         </div>
         

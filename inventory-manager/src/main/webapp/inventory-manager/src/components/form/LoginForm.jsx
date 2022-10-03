@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Input from "./Input";
+import Button from "../layout/Button";
 
 import { BiUser } from 'react-icons/bi'
 import { MdOutlineEmail } from 'react-icons/md'
 import { HiOutlineIdentification } from 'react-icons/hi'
-import Button from "../layout/Button";
+
 
 
 const LoginForm = ({handleSubmit}) => {
     
     const [data, setData] = useState({});
 
-
-    const submit = () => {
+    const submit = (e) => {
+        e.preventDefault()
         handleSubmit(data)
     }
 
@@ -33,7 +34,6 @@ const LoginForm = ({handleSubmit}) => {
                     placeholder="Name"
                     handleOnChange={handleChange}
                     icon={ <BiUser />}
-                    autoFocus
                     />
                 <Input 
                     type="text"
@@ -51,8 +51,7 @@ const LoginForm = ({handleSubmit}) => {
                     handleOnChange={handleChange}
                     icon={ <HiOutlineIdentification />}
                 />
-
-                <Button type="submit" text="create"></Button>
+                <Button type="submit" text="create" />
             </FormSty>
         </>
     )

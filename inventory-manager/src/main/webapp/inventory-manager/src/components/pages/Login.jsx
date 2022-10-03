@@ -7,12 +7,10 @@ import Title from "../layout/Title";
 
 const Login = () => {
     
-    const [message, setMessage] = useState('')
-    const [type, setType] = useState('success')
+    const [message, setMessage] = useState()
 
     const createPerson = (data) => {
-
-    
+        setMessage('')
         fetch('http://localhost:8080/people', {
             method: "POST",
             headers: {
@@ -21,26 +19,19 @@ const Login = () => {
             },
             body: JSON.stringify(data)
         })
-            .then(response => {
-                if(response.ok) {
-                    response.json()
-                } else {
-                    throw new Error("Something went wrong.")
-                }
-            })
-            .then(() => {
-                setMessage("New account added successfully!")
-                setType('success')
-            })
-            .catch((err) => {
-                alert(`Something went wrong: ${err}`)
-            })
+        .then((resp) => resp ? resp.json() : console.log('we got an error'))
+        .then(() => {
+            setMessage("Welcome to our service!")
+        })
+        .catch((error) => {
+            alert(`Something went wrong: ${error}`)
+        })
     }
 
     return(
-        <Container customClass={'section'}>
+        <Container customClass="section">
             <Title text={"create account"}/>
-            {message && <Message type={type} msg={message} />}
+            {message && <Message type="success login" msg={message} />}
             <LoginForm handleSubmit={createPerson}/>
         </Container>
     )

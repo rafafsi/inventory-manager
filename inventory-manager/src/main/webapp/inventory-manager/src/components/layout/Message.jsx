@@ -27,17 +27,22 @@ const Message = ({ msg, type }) => {
     )
 }
 const MessageSty = styled.div`
-    width: 90%;
-    padding: 1em;
+    width: 80%;
+    padding: 0.4em;
     border: 1px solid var(--mainBlack);
-    margin: 0 auto;
+    margin: 5px auto;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 8px;
 
     &.success {
         color: var(--success);
         background-color: var(--backSuccess);
         border-color: var(--borderSuccess);
+
+    }
+
+    &.login {
+        width: 30%;
     }
 
     &.error {
@@ -46,10 +51,5 @@ const MessageSty = styled.div`
         border-color: var(--borderError);
     }
 `
-
-
-
-
-
 
 export default Message;
