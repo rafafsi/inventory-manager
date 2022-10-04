@@ -10,7 +10,7 @@ const Input = ({ icon, type, text, handleOnChange, placeholder, name, value }) =
                 name={name}
                 placeholder={placeholder} 
                 onChange={handleOnChange}
-                value={value}
+                defaultValue={value ? value : ''}
                  />
         </Wrapper>
     )

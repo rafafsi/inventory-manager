@@ -20,7 +20,7 @@ const Button = styled(Link)`
     color: var(--mainBlack);
     text-decoration: none;
     transition: 0.5s;
-    margin-top: 0.5em;
+    margin-top: 1em;
     text-transform: uppercase;
 
     &:hover {

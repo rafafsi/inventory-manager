@@ -18,7 +18,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState([])
 
-    const [removeLoading, setRemoveLoading] = useState(false);
+    const [removeLoading, setRemoveLoading] = useState(false)
     const [showForm, setShowForm] = useState(true);
     const [showTable, setShowTable] = useState(false);
     const [showButton, setShowButton] = useState(false)
@@ -32,17 +32,18 @@ const Products = () => {
     useEffect(() => {
         setTimeout(() => {
             fetch('http://localhost:8080/products', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        }).then((resp) => resp.json())
-            .then((data) => {
-                setProducts(data)
-                setRemoveLoading(true)
-            }).catch((error) => console.log(error))
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            }).then((resp) => resp.json())
+                .then((data) => {
+                    setProducts(data)
+                }).catch((error) => console.log(error))
         }, 3000)
+        
     }, [])
+    
 
     const createProduct = (product) => {
         setMessageCreate('')
@@ -137,12 +138,16 @@ const Products = () => {
             setShowForm(!showForm)
         }
     }
-    
+
     const toggleTable = () => {
         if(showForm) {
             setShowTable(!showTable)
             setShowForm(!showForm)
-        } else {
+            setRemoveLoading(true)
+        } 
+        if(!products) {
+            setRemoveLoading(false)
+        }else {
             setShowTable(!showTable)
         }
     }
@@ -154,6 +159,7 @@ const Products = () => {
         { heading: "Expiration date", value: "expirationDate" },
         { heading: "Actions", value: "actions"}
     ]
+
     return (
         <Container customClass="section column">
             <FormSty>
@@ -170,23 +176,23 @@ const Products = () => {
                     <ProductForm btnText={"update product"} productData={product} handleSubmit={editProduct}/>
                 )}
             </FormSty>
-
-
             <FormSty>
                 <Title text="your products" />
                 {!showTable ? 
                     <Button handleClick={toggleTable} text="click to see" /> : 
                     <Button handleClick={toggleTable} customClass="close" text={< AiFillCloseCircle />}/>}
                 {messageDelete && <Message type="success" msg={messageDelete}/>}
-                {showTable && 
+                {!removeLoading && <Loading />}
+                {showTable && products && (
                     <Table 
-                        handleEdit={handleEdit} 
-                        handleDelete={deleteProduct} 
-                        data={products} 
-                        column={column} 
-                    /> }
-                {showTable && !removeLoading && <Loading />}
+                    handleEdit={handleEdit} 
+                    handleDelete={deleteProduct} 
+                    data={products} 
+                    column={column} />
+                )}
+
                 
+               
             </FormSty>
         </Container>
     )

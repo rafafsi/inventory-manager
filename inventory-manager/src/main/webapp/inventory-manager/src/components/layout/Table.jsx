@@ -4,56 +4,57 @@ import { FaRegEdit } from 'react-icons/fa'
 import { RiDeleteBin2Line } from 'react-icons/ri'
 import Button from "./Button";
 
-const Table = ({data, column, handleEdit, handleDelete}) => {
-
+const Table = ({ data, column, handleEdit, handleDelete }) => {
+   
+   
     return (
-            <TableSty>
-                <Head>
-                    <Row>
-                        {column.map((item, idx) => <TableHeadItem idx={idx} item={item}/>)}
-                    </Row>
-                </Head>
-                <tbody>
-                    {data.map((item) => <TableRow 
-                        handleEdit={handleEdit} 
-                        handleDelete={handleDelete} 
-                        item={item} 
-                        column={column} 
-                        />
-                    )}
-                </tbody>
-            </TableSty>
+        <TableSty>
+        <Head>
+            <Row>
+                {column.map((item, idx) => <TableHeadItem idx={idx} item={item} />)}
+            </Row>
+        </Head>
+        <tbody>
+            {data.map((item) => <TableRow
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+                item={item}
+                column={column} 
+            />
+            )}
+        </tbody>
+    </TableSty>
     )
 }
 
-const TableHeadItem = ({item, idx}) => <Th key={idx}> {item.heading} </Th>
+const TableHeadItem = ({ item, idx }) => <Th key={idx}> {item.heading} </Th>
 
-const TableRow = ({handleEdit, handleDelete, item, column}) => (
+const TableRow = ({ handleEdit, handleDelete, item, column }) => (
     <Row>
         {column.map((columItem) => {
-        
-        const editProduct = (e) => {
-            e.preventDefault();
-            handleEdit(item.id)
-        }
-     
-        const removeProduct = () => {
-            handleDelete(item.id)
-        }
-        
-        if(columItem.value == 'actions'){
-           return (
-                <td >
-                    <Button handleClick={editProduct}customClass="action" type="button" text={<FaRegEdit />}></Button>
-                    <Button handleClick={removeProduct}customClass="action" type="button" text={<RiDeleteBin2Line />} />
-                </td>
-             )
-        } else {
-            return (
-                <td > {item[`${columItem.value}`]} </td>
-            )
-        }
-      
+
+            const editProduct = (e) => {
+                e.preventDefault();
+                handleEdit(item.id)
+            }
+
+            const removeProduct = () => {
+                handleDelete(item.id)
+            }
+
+            if (columItem.value == 'actions') {
+                return (
+                    <td >
+                        <Button handleClick={editProduct} customClass="action" type="button" text={<FaRegEdit />}></Button>
+                        <Button handleClick={removeProduct} customClass="action" type="button" text={<RiDeleteBin2Line />} />
+                    </td>
+                )
+            } else {
+                return (
+                    <td > {item[`${columItem.value}`]} </td>
+                )
+            }
+
         })}
     </Row>
 )
