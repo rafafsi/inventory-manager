@@ -36,14 +36,14 @@ const Products = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-            }).then((resp) => resp.json())
+            }).then(resp ? resp.json() : alert('we got an error!'))
                 .then((data) => {
                     setProducts(data)
-                }).catch((error) => console.log(error))
+                }).catch((error) => alert(`Something went wrong: ${error}`))
         }, 3000)
-        
+
     }, [])
-    
+
 
     const createProduct = (product) => {
         setMessageCreate('')
@@ -54,14 +54,12 @@ const Products = () => {
             },
             body: JSON.stringify(product),
         })
-        .then((resp) => {
-            resp.json()
-        })
-        .then((data) => {
-            setProducts(data)
-            setMessageCreate('Product created successfully!')
-        })
-        .catch((error) => console.log(error))
+            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((data) => {
+                setProducts(data)
+                setMessageCreate('Product created successfully!')
+            })
+            .catch((error) => alert(`Something went wrong: ${error}`))
     }
 
 
@@ -85,27 +83,27 @@ const Products = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(product)
-        }).then((resp) => {
-            resp.json()
-        }).then((data) => {
-            setProducts(data)
-            setMessageEdit('Updated product!')
-        }).catch((error) => console.log(error))
-    }
-        
-    
-    const getProduct = (id) => { 
-    fetch(`http://localhost:8080/products/${id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then((resp) => resp.json())
+        })
+            .then(resp ? resp.json() : alert('we got an error!'))
             .then((data) => {
-                setProduct(data)  
+                setProducts(data)
+                setMessageEdit('Updated product!')
+            }).catch((error) => alert(`Something went wrong: ${error}`))
+    }
+
+
+    const getProduct = (id) => {
+        fetch(`http://localhost:8080/products/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((data) => {
+                setProduct(data)
             })
-            .catch((error) => console.log(error))
+            .catch((error) => alert(`Something went wrong: ${error}`))
     }
 
     const deleteProduct = (id) => {
@@ -117,21 +115,19 @@ const Products = () => {
                 "Access-Control-Allow-Origin": "*",
             }
         })
-        .then((resp) => {
-            resp.json()
-        })
-        .then(() => {
-            setProducts(products.filter((product) => product.id !== id))
-            setMessageDelete('Product deleted successfully!')
-        })
-        .catch((error) => console.log(error))
+            .then(resp ? resp.json() : alert('we got an error!'))
+            .then(() => {
+                setProducts(products.filter((product) => product.id !== id))
+                setMessageDelete('Product deleted successfully!')
+            })
+            .catch((error) => alert(`Something went wrong: ${error}`))
     }
 
-    const toggleForm = (e) => {
-        if(edit) {
+    const toggleForm = () => {
+        if (edit) {
             showButton(!showButton)
         }
-        if(showTable) {
+        if (showTable) {
             setShowTable(!showTable)
             setShowForm(!showForm)
         } else {
@@ -140,14 +136,14 @@ const Products = () => {
     }
 
     const toggleTable = () => {
-        if(showForm) {
+        if (showForm) {
             setShowTable(!showTable)
             setShowForm(!showForm)
             setRemoveLoading(true)
-        } 
-        if(!products) {
+        }
+        if (!products) {
             setRemoveLoading(false)
-        }else {
+        } else {
             setShowTable(!showTable)
         }
     }
@@ -157,7 +153,7 @@ const Products = () => {
         { heading: "Type", value: "type" },
         { heading: "Price", value: "price" },
         { heading: "Expiration date", value: "expirationDate" },
-        { heading: "Actions", value: "actions"}
+        { heading: "Actions", value: "actions" }
     ]
 
     return (
@@ -169,30 +165,27 @@ const Products = () => {
                     <Button handleClick={toggleForm} customClass="close" text={< AiFillCloseCircle />} />
                 }
 
-                {messageCreate && <Message type="success" msg={messageCreate}/>}
-                {messageEdit && <Message type="success" msg={messageEdit}/>}
-                {showForm && <ProductForm btnText={"create product"} handleSubmit={createProduct}/>}
+                {messageCreate && <Message type="success" msg={messageCreate} />}
+                {messageEdit && <Message type="success" msg={messageEdit} />}
+                {showForm && <ProductForm btnText={"create product"} handleSubmit={createProduct} />}
                 {edit && (
-                    <ProductForm btnText={"update product"} productData={product} handleSubmit={editProduct}/>
+                    <ProductForm btnText={"update product"} productData={product} handleSubmit={editProduct} />
                 )}
             </FormSty>
             <FormSty>
                 <Title text="your products" />
-                {!showTable ? 
-                    <Button handleClick={toggleTable} text="click to see" /> : 
-                    <Button handleClick={toggleTable} customClass="close" text={< AiFillCloseCircle />}/>}
-                {messageDelete && <Message type="success" msg={messageDelete}/>}
+                {!showTable ?
+                    <Button handleClick={toggleTable} text="click to see" /> :
+                    <Button handleClick={toggleTable} customClass="close" text={< AiFillCloseCircle />} />}
+                {messageDelete && <Message type="success" msg={messageDelete} />}
                 {!removeLoading && <Loading />}
                 {showTable && products && (
-                    <Table 
-                    handleEdit={handleEdit} 
-                    handleDelete={deleteProduct} 
-                    data={products} 
-                    column={column} />
+                    <Table
+                        handleEdit={handleEdit}
+                        handleDelete={deleteProduct}
+                        data={products}
+                        column={column} />
                 )}
-
-                
-               
             </FormSty>
         </Container>
     )

@@ -24,7 +24,7 @@ const Login = () => {
             },
             body: JSON.stringify(data)
         })
-            .then((resp) => resp ? resp.json() : console.log('we got an error'))
+            .then((resp) => resp ? resp.json() : alert('we got an error!'))
             .then(() => {
                 setMessage("Welcome to our service!")
                 setTimeout(() => {
@@ -46,7 +46,7 @@ const Login = () => {
                 </Container>
             ) : (
                 <Container customClass="section">
-                    <Img src={img} alt="Inventory"/>
+                    <Img src={img} alt="Inventory" />
                     <LinkButton to="/products" text="insert your products!" />
                 </Container>
             )}
