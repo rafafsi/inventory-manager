@@ -65,7 +65,6 @@ const ProductForm = ({ btnText, handleSubmit, productData }) => {
                         mask="9999-99-99"
                         onChange={handleChange}
                         value={product.expirationDate ? product.expirationDate : '' }
-
                     />
                 </Wrapper>
                 <Button type="submit" text={btnText} />

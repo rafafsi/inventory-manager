@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Input = ({ icon, type, text, handleOnChange, placeholder, name, value }) => {
+const Input = ({ icon, type, text, handleOnChange, placeholder, name, value}) => {
     return (
         <Wrapper>
             <Icon>{icon}</Icon>
@@ -10,7 +10,7 @@ const Input = ({ icon, type, text, handleOnChange, placeholder, name, value }) =
                 name={name}
                 placeholder={placeholder} 
                 onChange={handleOnChange}
-                defaultValue={value ? value : ''}
+                defaultValue={value}
                  />
         </Wrapper>
     )

@@ -1,29 +1,19 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-
 import { MdOutlineInventory } from 'react-icons/md'
 import { AiOutlineHome } from 'react-icons/ai'
 import { TbLogin } from 'react-icons/tb'
-import { TbLogout } from 'react-icons/tb'
 import { CgMenuRound } from 'react-icons/cg'
 import Brand from "./Brand";
-import { useRef } from "react";
 
 
-
-const Navbar = ({ login }) => {
-
-    const navRef = useRef();
-    const navToggle = () => {
-        console.log(navRef.current)
-        navRef.current.classList.toggle('nav-responsive')
-    }
+const Navbar = () => {
 
     return (
-        <Nav>
+        <Nav >
             <Brand place={'nav'} />
-            <List ref={navRef}>
+            <List>
                 <Item >
                     <NavLink to="/" end>
                         <AiOutlineHome />
@@ -43,13 +33,10 @@ const Navbar = ({ login }) => {
                     </NavLink>
                 </Item>
 
-                <button className="nav-burguer" onClick={navToggle}>
+                <button className="nav-burguer">
                     <CgMenuRound />
                 </button>
-
             </List>
-
-
         </Nav>
     )
 }
@@ -67,7 +54,7 @@ const Nav = styled.nav`
     justify-content: space-between;
     background-color: var(--mainBlack);
     transition: 0.3s cubic-bezier(0, 0.72, 0, 1.03);
-    box-shadow: 0 10px 0 var(--mainOrange);
+    box-shadow: 0 10px 0 var(--mainOrange);   
 `
 
 const List = styled.ul`
@@ -97,30 +84,14 @@ const List = styled.ul`
             font-size: 2.5em;
             z-index: 1;
         }
-
     }
 
-    @media screen and (max-width: 1024px) {
-        
+    @media screen and (max-width: 1024px) {  
         .nav-burguer {
             visibility: visible;
             opacity: 1;
             position: fixed;
-        }
-
-        .nav-responsive {
-            li {
-                display: flex;
-            position: fixed;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            visibility: visible;
-            opacity: 1;
-            }
-
-        }
-
+        } 
     }
     `
 
@@ -135,15 +106,14 @@ const Item = styled.li`
         position: absolute;
         transition: 1s ease-in-out;
     }
-    
+
     @media screen and (max-width: 1024px) {
         & {
-                visibility: hidden;
-                opacity: 0;
-                transition: 1s ease-in-out;
-            }
+            visibility: hidden;
+            opacity: 0;
+            transition: 1s ease-in-out;
+        }
     }
-
 
     &:hover {
        transform: translateY(-30px);

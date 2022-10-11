@@ -36,12 +36,13 @@ const Products = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-            }).then(resp ? resp.json() : alert('we got an error!'))
+            })
+                .then(resp => resp.json())
                 .then((data) => {
                     setProducts(data)
+                    setRemoveLoading(true)
                 }).catch((error) => alert(`Something went wrong: ${error}`))
-        }, 3000)
-
+        }, 2000)
     }, [])
 
 
@@ -54,7 +55,13 @@ const Products = () => {
             },
             body: JSON.stringify(product),
         })
-            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((resp) => {
+                if (resp) {
+                    resp.json()
+                } else {
+                    alert("we got an error!")
+                }
+            })
             .then((data) => {
                 setProducts(data)
                 setMessageCreate('Product created successfully!')
@@ -84,7 +91,7 @@ const Products = () => {
             },
             body: JSON.stringify(product)
         })
-            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((resp) => resp.json())
             .then((data) => {
                 setProducts(data)
                 setMessageEdit('Updated product!')
@@ -99,7 +106,7 @@ const Products = () => {
                 "Content-Type": "application/json"
             }
         })
-            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((resp) => resp.json())
             .then((data) => {
                 setProduct(data)
             })
@@ -115,7 +122,7 @@ const Products = () => {
                 "Access-Control-Allow-Origin": "*",
             }
         })
-            .then(resp ? resp.json() : alert('we got an error!'))
+            .then((resp) => resp.json())
             .then(() => {
                 setProducts(products.filter((product) => product.id !== id))
                 setMessageDelete('Product deleted successfully!')
