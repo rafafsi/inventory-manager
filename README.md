@@ -1,7 +1,6 @@
 # Inventory Manager
 
 
-I'm so proud to have finished my FIRST fullstack project. 
 In this fantasy company website, called "Inventory Manager", we can create an account that is sent to postgreSQL through Java settings with SpringBoot, as well as insert and manage products with CRUD operations.
 
 ![2022-10-11_15-06-40](https://user-images.githubusercontent.com/86061018/195215293-a1826205-266d-4747-ace1-14c6394a7431.gif)
